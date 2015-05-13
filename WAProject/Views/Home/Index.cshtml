@@ -1,2 +1,11 @@
-﻿<h2>Welcome to ASP.NET MVC @ViewData["Version"] on @ViewData["Runtime"]!</h2>
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
+<div class="jumbotron">
+    <h2>Welcome to ASP.NET MVC @ViewData["Version"] on @ViewData["Runtime"]!</h2>
+    <p>
+        <a class="btn btn-lg btn-primary" href="~/UploadFile" role="button">Let's go &raquo;</a>
+    </p>
+</div>

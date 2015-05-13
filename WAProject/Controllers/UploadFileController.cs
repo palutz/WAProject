@@ -7,8 +7,14 @@ using System.Web.Mvc;
 
 namespace WAProject.Controllers
 {
-    public class UploadFile : Controller
+    public class UploadFileController : Controller
     {
+		[HttpGet]
+		public ActionResult Index() {
+			return View ();
+		}
+		
+		[HttpPost]
 		public ActionResult Index(HttpPostedFileBase file)
 		{	
 			if (file.ContentLength > 0) {
@@ -17,9 +23,7 @@ namespace WAProject.Controllers
 				file.SaveAs(path);
 			}
 
-			return RedirectToAction("Index");
-		}
-
-        
+			return RedirectToAction ("Index", "WebHook", new { hookurl = "path" });
+		}    
     }
 }

@@ -69,13 +69,16 @@
     <Folder Include="Scripts\" />
     <Folder Include="App_Data\" />
     <Folder Include="App_Data\uploads\" />
+    <Folder Include="Views\UploadFile\" />
+    <Folder Include="Views\WebHook\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\UploadFile.cs" />
+    <Compile Include="Controllers\UploadFileController.cs" />
+    <Compile Include="Controllers\WebHookController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -86,6 +89,8 @@
     <Content Include="Web.config" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
+    <Content Include="Views\UploadFile\Index.cshtml" />
+    <Content Include="Views\WebHook\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
