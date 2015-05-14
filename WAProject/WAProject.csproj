@@ -93,6 +93,9 @@
     <Compile Include="Actors\MapType0Actor.cs" />
     <Compile Include="Actors\MapType1Actor.cs" />
     <Compile Include="Actors\MapTypeErrActor.cs" />
+    <Compile Include="Actors\MapStoreType0Actor.cs" />
+    <Compile Include="Actors\MapStoreType1Actor.cs" />
+    <Compile Include="Actors\MapMinMaxActor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />

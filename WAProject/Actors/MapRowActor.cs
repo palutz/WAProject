@@ -11,6 +11,9 @@ namespace WAProject
 		private IActorRef _mapType0;
 		private IActorRef _mapType1;
 		private IActorRef _mapTypeErr;
+		private IActorRef _mapStoreType1;
+		private IActorRef _mapStoreType0;
+		private IActorRef _mapMinMax;
 
 		protected override void PreStart ()
 		{
@@ -20,8 +23,17 @@ namespace WAProject
 			Props mapRow1Props = Props.Create (() => new MapType1Actor ());
 			_mapType1 = Context.ActorOf (mapRow1Props, "mapType1Actor");
 
-			Props mapRowError = Props.Create (() => new MapTypeErrActor ());
-			_mapTypeErr = Context.ActorOf (mapRowError, "mapTypeError");
+			Props mapRowErrorProp = Props.Create (() => new MapTypeErrActor ());
+			_mapTypeErr = Context.ActorOf (mapRowErrorProp, "mapTypeErrorActor");
+
+			Props mapStoreT0Prop = Props.Create (() => new MapStoreType0Actor ());
+			_mapStoreType0 = Context.ActorOf (mapStoreT0Prop, "mapStoreType0Actor");
+
+			Props mapStoreT1Prop = Props.Create (() => new MapStoreType1Actor ());
+			_mapStoreType1 = Context.ActorOf (mapStoreT1Prop, "mapStoreType1Actor");
+
+			Props mapMinMaxProp = Props.Create (() => new MapMinMaxActor ());
+			_mapMinMax = Context.ActorOf (mapStoreT1Prop, "mapMinMaxActor");
 		}
 
 		protected override void OnReceive (object message)
