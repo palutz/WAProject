@@ -18,7 +18,10 @@ namespace WAProject
 					var row = fileStreamReader.ReadLine ();
 					string[] data = row.Split (',', StringSplitOptions.None);
 					var rowMsg = new FileMessages.RowFile (data, msg.FileName);
-					Context.ActorSelection ("/user/fileCoordinatorActor/mapFileActor").Tell(rowMsg);
+					if (i > 0)
+						Context.ActorSelection ("/user/fileCoordinatorActor/mapFileActor").Tell (rowMsg);
+					else
+						Context.ActorSelection ("/user/fileCoordinatorActor/mapFileActor").Tell (rowMsg as FileMessages.FirstRow);
 					Sender.Tell (rowMsg);
 					i++;
 				}

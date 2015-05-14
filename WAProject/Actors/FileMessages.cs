@@ -31,6 +31,18 @@ namespace WAProject
 			}
 		}
 
+		/// <summary>
+		/// First row.
+		/// </summary>
+		public class FirstRow : RowFile {}
+
+		public class StoreType0 : RowFile {}
+
+		public class StoreType1 : RowFile {}
+
+		/// <summary>
+		/// End of file.
+		/// </summary>
 		public class EndOfFile
 		{
 			public string FileName { get; private set; }

@@ -5,8 +5,10 @@ namespace WAProject
 {
 	public class MapMinMaxActor : UntypedActor
 	{
-		public MapMinMaxActor ()
+		public string[] _mapped;
+		protected override void OnReceive (object message)
 		{
+			
 		}
 	}
 }

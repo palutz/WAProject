@@ -38,6 +38,9 @@ namespace WAProject
 
 		protected override void OnReceive (object message)
 		{
+			if (message is FileMessages.FirstRow) {
+				// TODO ... manage the scenario in which the column are not in a fixed position
+			}
 			if (message is FileMessages.RowFile) {
 				var msg = message as FileMessages.RowFile;
 				int len = msg.Row.Length;
