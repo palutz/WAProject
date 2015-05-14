@@ -8,8 +8,9 @@ namespace WAProject.Controllers
 {
     public class WebHookController : Controller
     {
-		public ActionResult Index(string hookurl)
+		public ActionResult Index(string id)
         {
+			ViewData ["WebHook"] = id;
             return View ();
         }
     }

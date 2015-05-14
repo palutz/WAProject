@@ -62,6 +62,12 @@
     <Reference Include="System.Web.Mvc">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.0\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Akka">
+      <HintPath>..\packages\Akka.1.0.1\lib\net45\Akka.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
@@ -71,6 +77,7 @@
     <Folder Include="App_Data\uploads\" />
     <Folder Include="Views\UploadFile\" />
     <Folder Include="Views\WebHook\" />
+    <Folder Include="Actors\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
@@ -79,6 +86,13 @@
     </Compile>
     <Compile Include="Controllers\UploadFileController.cs" />
     <Compile Include="Controllers\WebHookController.cs" />
+    <Compile Include="Actors\FileCoordinatorActor.cs" />
+    <Compile Include="Actors\FileReaderActor.cs" />
+    <Compile Include="Actors\FileMessages.cs" />
+    <Compile Include="Actors\MapRowActor.cs" />
+    <Compile Include="Actors\MapType0Actor.cs" />
+    <Compile Include="Actors\MapType1Actor.cs" />
+    <Compile Include="Actors\MapTypeErrActor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />

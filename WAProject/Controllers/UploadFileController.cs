@@ -16,14 +16,15 @@ namespace WAProject.Controllers
 		
 		[HttpPost]
 		public ActionResult Index(HttpPostedFileBase file)
-		{	
+		{
+			string fileName = String.Empty;
 			if (file.ContentLength > 0) {
-				var fileName = Path.GetFileName(file.FileName);
+				fileName = Path.GetFileName(file.FileName);
 				var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
 				file.SaveAs(path);
 			}
 
-			return RedirectToAction ("Index", "WebHook", new { hookurl = "path" });
+			return Redirect ("/WebHook/Index/" + fileName);
 		}    
     }
 }
