@@ -5,8 +5,9 @@ namespace WAProject
 {
 	public class MapTypeErrActor : UntypedActor
 	{
-		public MapTypeErrActor ()
+		protected override void OnReceive (object message)
 		{
+			throw new NotImplementedException ();
 		}
 	}
 }

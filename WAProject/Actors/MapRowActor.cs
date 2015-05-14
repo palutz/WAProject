@@ -48,7 +48,7 @@ namespace WAProject
 				// TODO ... manage the scenario in which the column are not in a fixed position
 				this._mapResType0 = null;
 				this._mapResType1 = null;
-				this._mapMAxMin = false;
+				this._mappedMaxMin = false;
 				_mapMinMax.Tell(message); // initialize the mapper
 			} else  if (message is FileMessages.RowFile) {
 				var msg = message as FileMessages.RowFile;
@@ -67,25 +67,25 @@ namespace WAProject
 				// TODO check properly if all the computation mapping is finished
 				string fName = ((FileMessages.EndOfFile)message).FileName;
 				_mapMinMax.Tell(new FileMessages.AskMaxMinValue (fName));
-				_mapStoreType0.Tell (new FileMessages.EndOfFile (message));
-				_mapStoreType1.Tell (new FileMessages.EndOfFile (message));
+				_mapStoreType0.Tell (new FileMessages.EndOfFile (fName, 0));
+				_mapStoreType1.Tell (new FileMessages.EndOfFile (fName, 0));
 			} else if(message is FileMessages.ResultMaxMinValue) {  // rethink a better way to verify the map is ended
 				var msg = message as FileMessages.ResultMaxMinValue;
 				this._maxValues = msg.MaxValue;
 				this._minValues = msg.MinValue;
 				this._mappedMaxMin = true;
 				if(IsMappingEnded())
-					Sender.Tell(new FileMessages.MapProcessEnded(this._mapType0, this._mapType1, this._minValues, this._maxValues));
+					Sender.Tell(new FileMessages.MapProcessEnded(this._mapResType0, this._mapResType1, this._minValues, this._maxValues));
 			} else if(message is FileMessages.ResultMapType0) {
 				var msg = message as FileMessages.ResultMapType0;
-				this._mapType0 = msg.MapResult;
+				this._mapResType0 = msg.MapResult;
 				if(IsMappingEnded())
-					Sender.Tell(new FileMessages.MapProcessEnded(this._mapType0, this._mapType1, this._minValues, this._maxValues));
+					Sender.Tell(new FileMessages.MapProcessEnded(this._mapResType0, this._mapResType1, this._minValues, this._maxValues));
 			} else if(message is FileMessages.ResultMapType1) {
 				var msg = message as FileMessages.ResultMapType1;
-				this._mapType1 = msg.MapResult;
+				this._mapResType1 = msg.MapResult;
 				if(IsMappingEnded())
-					Sender.Tell(new FileMessages.MapProcessEnded(this._mapType0, this._mapType1, this._minValues, this._maxValues));
+					Sender.Tell(new FileMessages.MapProcessEnded(this._mapResType0, this._mapResType1, this._minValues, this._maxValues));
 			} else {
 				Unhandled(message);
 			}

@@ -20,13 +20,13 @@ namespace WAProject
 				for (int i = 1; i < msg.Row.Length - 1; i++) {
 					var aValue = Convert.ToInt32 (msg.Row [i]);
 					if (this._maxMapped [i] != null) {
-						if (aValue > this._maxMapped [i])
-							this._maxMapped = aValue;
+						if (aValue > (int)this._maxMapped [i])
+							this._maxMapped[i] = aValue;
 					} else
 						this._maxMapped [i] = aValue;
 					
 					if (this._minMapped [i] != null) {
-						if (aValue < this._minMapped [i])
+						if (aValue < (int)this._minMapped [i])
 							this._minMapped [i] = aValue;
 					} else
 						this._minMapped [i] = Convert.ToInt32 (msg.Row [i]);

@@ -8,21 +8,20 @@ namespace WAProject
 	public class FileCoordinatorActor : UntypedActor
 	{
 		private IActorRef _fileReaderActor;
-		private IActorRef _mapFileRow;
-
 
 		protected override void PreStart ()
 		{
 			Props fileReaderProps = Props.Create (() => new FileReaderActor ());
 			_fileReaderActor = Context.ActorOf (fileReaderProps, "fileReaderActor");
 
+			Props fileWriterProps = Props.Create (() => new FileWriterActor ());
+			var fWriterActor = Context.ActorOf (fileReaderProps, "fileWriterActor");
+
 			Props mapFileRow = Props.Create (() => new MapRowActor ());
-			_mapFileRow = Context.ActorOf (mapFileRow, "mapFileActor");
+			var mFileRow = Context.ActorOf (mapFileRow, "mapFileActor");
 
 			Props reduceFileRow = Props.Create (() => new ReduceFileActor ());
-			_mapFileRow = Context.ActorOf (mapFileRow, "mapFileActor");
-
-			reduceFileActor
+			var rFileRow = Context.ActorOf (mapFileRow, "reduceFileActor");
 		}
 
 		/// <summary>

@@ -100,6 +100,7 @@
     <Compile Include="Actors\ReduceType0Actor.cs" />
     <Compile Include="Actors\ReduceType1Actor.cs" />
     <Compile Include="Actors\ReducedStore.cs" />
+    <Compile Include="Actors\FileWriterActor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />

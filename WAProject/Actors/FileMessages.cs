@@ -35,11 +35,17 @@ namespace WAProject
 		/// <summary>
 		/// First row.
 		/// </summary>
-		public class FirstRow : RowFile {}
+		public class FirstRow : RowFile {
+			public FirstRow(string[] row, string fileName) : base(row, fileName) {}
+		}
 
-		public class StoreType0 : RowFile {}
+		public class StoreType0 : RowFile {
+			public StoreType0(string[] row, string fileName) : base(row, fileName) {}
+		}
 
-		public class StoreType1 : RowFile {}
+		public class StoreType1 : RowFile {
+			public StoreType1(string[] row, string fileName) : base(row, fileName) {}
+		}
 
 		public class ResultMapType1 {
 			public List<int[]> MapResult { get; private set; }
@@ -97,6 +103,33 @@ namespace WAProject
 			public ReduceStore(int[] values)
 			{
 				storeValue = values;
+			}
+		}
+
+		public class ReduceType0End {
+			public string FileName { get; private set; }
+
+			public ReduceType0End(string fileName) 
+			{
+				FileName = fileName;
+			}
+		}
+
+		public class ReduceType1End : ReduceType0End {
+
+			public ReduceType1End(string fileName) : base(fileName) 
+			{
+			}
+		}
+
+		public class CheckReduceEnded { }
+
+		public class ReduceResult { 
+			public List<string> ReduceRes { get; private set; }
+
+			public ReduceResult(List<String> res)
+			{
+				ReduceRes = res;
 			}
 		}
 
