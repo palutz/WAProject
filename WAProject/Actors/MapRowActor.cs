@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Akka.Actor;
 
 namespace WAProject
@@ -14,6 +15,11 @@ namespace WAProject
 		private IActorRef _mapStoreType1;
 		private IActorRef _mapStoreType0;
 		private IActorRef _mapMinMax;
+		List<int[]> _mapResType0;
+		List<int[]> _mapResType1;
+		int[] _minValues;
+		int[] _maxValues;
+		bool _mappedMaxMin = false;
 
 		protected override void PreStart ()
 		{
@@ -40,24 +46,54 @@ namespace WAProject
 		{
 			if (message is FileMessages.FirstRow) {
 				// TODO ... manage the scenario in which the column are not in a fixed position
-			}
-			if (message is FileMessages.RowFile) {
+				this._mapResType0 = null;
+				this._mapResType1 = null;
+				this._mapMAxMin = false;
+				_mapMinMax.Tell(message); // initialize the mapper
+			} else  if (message is FileMessages.RowFile) {
 				var msg = message as FileMessages.RowFile;
 				int len = msg.Row.Length;
 				if (len > 0) {
-					if (msg.Row [len - 1] == 0) {
+					if (String.Compare (msg.Row [len - 1], "0") == 0) {
 						_mapType0.Tell (msg);
-					} else if (msg.Row [len - 1] == 1) {
+					} else if (String.Compare (msg.Row [len - 1], "1") == 0) {
 						_mapType1.Tell (msg);
 					} else
 						_mapTypeErr.Tell (msg);
 				} else {
 					_mapTypeErr.Tell (msg);
 				}
-			} else
-			{
+			} else if (message is FileMessages.EndOfFile) {
+				// TODO check properly if all the computation mapping is finished
+				string fName = ((FileMessages.EndOfFile)message).FileName;
+				_mapMinMax.Tell(new FileMessages.AskMaxMinValue (fName));
+				_mapStoreType0.Tell (new FileMessages.EndOfFile (message));
+				_mapStoreType1.Tell (new FileMessages.EndOfFile (message));
+			} else if(message is FileMessages.ResultMaxMinValue) {  // rethink a better way to verify the map is ended
+				var msg = message as FileMessages.ResultMaxMinValue;
+				this._maxValues = msg.MaxValue;
+				this._minValues = msg.MinValue;
+				this._mappedMaxMin = true;
+				if(IsMappingEnded())
+					Sender.Tell(new FileMessages.MapProcessEnded(this._mapType0, this._mapType1, this._minValues, this._maxValues));
+			} else if(message is FileMessages.ResultMapType0) {
+				var msg = message as FileMessages.ResultMapType0;
+				this._mapType0 = msg.MapResult;
+				if(IsMappingEnded())
+					Sender.Tell(new FileMessages.MapProcessEnded(this._mapType0, this._mapType1, this._minValues, this._maxValues));
+			} else if(message is FileMessages.ResultMapType1) {
+				var msg = message as FileMessages.ResultMapType1;
+				this._mapType1 = msg.MapResult;
+				if(IsMappingEnded())
+					Sender.Tell(new FileMessages.MapProcessEnded(this._mapType0, this._mapType1, this._minValues, this._maxValues));
+			} else {
 				Unhandled(message);
 			}
+		}
+
+		private bool IsMappingEnded()
+		{
+			return (this._mapResType0 != null) && (this._mapResType1 != null) && this._mappedMaxMin; // are all the mapping endned?
 		}
 	}
 }

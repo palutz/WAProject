@@ -18,6 +18,11 @@ namespace WAProject
 
 			Props mapFileRow = Props.Create (() => new MapRowActor ());
 			_mapFileRow = Context.ActorOf (mapFileRow, "mapFileActor");
+
+			Props reduceFileRow = Props.Create (() => new ReduceFileActor ());
+			_mapFileRow = Context.ActorOf (mapFileRow, "mapFileActor");
+
+			reduceFileActor
 		}
 
 		/// <summary>

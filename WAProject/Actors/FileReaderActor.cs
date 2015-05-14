@@ -10,7 +10,7 @@ namespace WAProject
 		{
 			if (message is FileMessages.ReadFile) {  // received the message that ask to read a file...
 				var msg = message as FileMessages.ReadFile;
-				var fileStream = new FileStream(Path.GetFullPath(msg.FileName), FileMode.Open, FileAccess.Read, FileShare.Read);
+				var fileStream = new FileStream (Path.GetFullPath (msg.FileName), FileMode.Open, FileAccess.Read, FileShare.Read);
 				var fileStreamReader = new StreamReader (fileStream);
 
 				long i = 0; 
@@ -26,6 +26,9 @@ namespace WAProject
 					i++;
 				}
 				Sender.Tell (new FileMessages.EndOfFile (msg.FileName, i));
+			} else if (message is FileMessages.MapProcessEnded) { 
+				var msg = message as FileMessages.MapProcessEnded;
+				Context.ActorSelection ("/user/fileCoordinatorActor/reduceFileActor").Tell (msg);
 			} else
 			{
 				Unhandled(message);

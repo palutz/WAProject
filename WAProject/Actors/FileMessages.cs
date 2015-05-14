@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WAProject
 {
@@ -39,6 +40,85 @@ namespace WAProject
 		public class StoreType0 : RowFile {}
 
 		public class StoreType1 : RowFile {}
+
+		public class ResultMapType1 {
+			public List<int[]> MapResult { get; private set; }
+
+			public ResultMapType1(List<int[]> mapped)
+			{
+				MapResult = mapped;
+			}
+		}
+
+		public class ResultMapType0 :ResultMapType1 {
+			public ResultMapType0(List<int[]> mapped) : base(mapped) {}
+		}
+
+		public class MapProcessEnded {
+			public List<int[]> MapResultType0 { get; private set; }
+			public List<int[]> MapResultType1 { get; private set; }
+			public int[] MaxValues { get; private set; }
+			public int[] MinValues { get; private set; }
+
+			public MapProcessEnded(List<int[]> mapType0, List<int[]> mapType1, int[] minValues, int[] maxValues)
+			{
+				MapResultType0 = mapType0;
+				MapResultType1 = mapType1;
+				MaxValues = maxValues;
+				MinValues = minValues;
+			}
+		}
+
+		public class ReduceType0 {
+			public List<int[]> MapType0 { get; private set; }
+			public int[] MaxValues { get; private set; }
+			public int[] MinValues { get; private set; }
+
+			public ReduceType0(List<int[]> mapType0, int[] minValues, int[] maxValues)
+			{
+				MapType0 = mapType0;
+				MaxValues = maxValues;
+				MinValues = minValues;
+			}
+		}
+
+		public class ReduceType1 {
+			public List<int[]> MapType1 { get; private set; }
+
+			public ReduceType1(List<int[]> mapType1)
+			{
+				MapType1 = mapType1;
+			}
+		}
+
+		public class ReduceStore {
+			public int[] storeValue { get; private set; }
+
+			public ReduceStore(int[] values)
+			{
+				storeValue = values;
+			}
+		}
+
+		public class AskMaxMinValue {
+			public string FileName { get; private set; }
+
+			public AskMaxMinValue(string fileName) 
+			{
+				FileName = fileName;
+			}
+		}
+
+		public class ResultMaxMinValue {
+			public int[] MaxValue { get; private set; }
+			public int[] MinValue { get; private set; }
+
+			public ResultMaxMinValue(int[] maxValues, int[] minValues)
+			{
+				MaxValue = maxValues;
+				MinValue = minValues;
+			}
+		}
 
 		/// <summary>
 		/// End of file.
