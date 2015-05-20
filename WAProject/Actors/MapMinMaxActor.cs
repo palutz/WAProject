@@ -26,7 +26,7 @@ namespace WAProject
 						this._maxMapped [i] = aValue;
 					
 					if (this._minMapped [i] != null) {
-						if (aValue < (int)this._minMapped [i])
+						if (aValue < (int)this._minMapped [i]	)
 							this._minMapped [i] = aValue;
 					} else
 						this._minMapped [i] = Convert.ToInt32 (msg.Row [i]);
